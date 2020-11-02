@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.21.0 (992df58d8)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: goods
+  name: goods
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: goods
+  strategy: {}
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert
+        kompose.version: 1.21.0 (992df58d8)
+      creationTimestamp: null
+      labels:
+        io.kompose.service: goods
+    spec:
+      containers:
+      - env:
+        - name: DB_SERVER
+          value: postgresqldb-goods
+        - name: POSTGRES_DB
+          value: goods
+        - name: POSTGRES_PASSWORD
+          value: 44680339Aa!
+        - name: POSTGRES_USER
+          value: postgres
+        image: andrewdarialov/goodscontroller:latest
+        imagePullPolicy: ""
+        name: goods
+        ports:
+        - containerPort: 8890
+        resources: {}
+      restartPolicy: Always
+      serviceAccountName: ""
+      volumes:
+        - name: postgres-data-goods
+          persistentVolumeClaim:
+            claimName: postgres-data-goods
+status: {}

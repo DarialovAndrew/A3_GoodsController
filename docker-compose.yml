@@ -1,0 +1,30 @@
+version: '3.1'
+services:
+  goods:
+    network_mode: bridge
+    container_name: goods
+    image: andrewdarialov/goodscontroller:latest
+    build: ./
+    ports:
+      - "8890:8890"
+    environment:
+      - POSTGRES_PASSWORD=44680339Aa!
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=goods
+      - DB_SERVER=postgresqldb-goods
+    links:
+      - postgresqldb-goods
+
+  postgresqldb-goods:
+    network_mode: bridge
+    image: postgres
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_PASSWORD=44680339Aa!
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=goods
+    volumes:
+      - postgres-data-goods:D:\volumes\goodsService
+volumes:
+  postgres-data-goods:
